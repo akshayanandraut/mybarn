@@ -1,0 +1,29 @@
+{
+  "name": "mybarn",
+  "version": "1.0.0",
+  "description": "MyBarn application",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshayanandraut/mybarn.git"
+  },
+  "keywords": [
+    "barn",
+    "mybarn",
+    "cow",
+    "buffalo",
+    "bull",
+    "ox",
+    "animal",
+    "milk"
+  ],
+  "author": "Akshyanand Raut",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/akshayanandraut/mybarn/issues"
+  },
+  "homepage": "https://github.com/akshayanandraut/mybarn#readme"
+}
