@@ -9,12 +9,10 @@
 }
 
 .navbar-toggle {
-    top: 10px
+    top: 10px;
 }
 
 @media (min-width:768px) {
-
-    .navbar-brand {}
 
     .nav.navbar-nav a {
         padding-top: 30px;
