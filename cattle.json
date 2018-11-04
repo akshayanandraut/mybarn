@@ -1,0 +1,37 @@
+{
+  "_id": ObjectId("5bdf07f30a31761b80964061"),
+  "id": 0.0,
+  "gender": "f",
+  "breed": "gir",
+  "color": "brown",
+  "descriptionAndComments": "",
+  "dateOfBirth": "15-05-2018 00:00:00",
+  "dateOfDeath": null,
+  "parents": {
+    "motherId": -1.0,
+    "fatherId": -1.0
+  },
+  "vaccinationDetails": [{
+    "dosageDate": null,
+    "vaccine": null,
+    "vaccineDescription": null,
+    "healthStatus": 1.0
+  }],
+  "dailyHealth": [{
+    "healthCheckDate": null,
+    "healthStatus": 0.0,
+    "healthDescription": null
+  }],
+  "lactation": {
+    "expectedQuantityInLitersPerDay": 25.0,
+    "actualQuantityInLitersPerDay": [{
+      "date": null,
+      "quantity": 22.0
+    }]
+  },
+  "diet": [{
+    "date": null,
+    "food": "green fodder",
+    "quantityInKgs": null
+  }]
+}
