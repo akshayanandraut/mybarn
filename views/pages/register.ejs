@@ -1,1 +1,62 @@
-<form action=""></form>
+<div class="container">
+    <form action="/register" method="post">
+        <div class="form-group row">
+            <label for="inputName" class="col-sm-1-12 col-form-label">Cattle ID: </label>
+            <div class="col-xs-1-12">
+                <input type="number" class="form-control" readonly name="inputName" id="id" placeholder=""
+                    aria-describedby="helpId">
+                <small id="helpId" class="form-text text-muted">Make sure that this ID and the Cattle ID is the same.</small>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-info">Submit</button>
+
+    </form>
+</div>
+
+<script>
+    var id = <%=data%>;
+    document.getElementById('id').value = id;
+</script>
+
+<!--
+
+{
+"_id": ObjectId("5bdf07f30a31761b80964061"),
+"id": 0.0,
+"gender": "f",
+"breed": "gir",
+"color": "brown",
+"descriptionAndComments": "",
+"dateOfBirth": "15-05-2018 00:00:00",
+"dateOfDeath": null,
+"parents": {
+"motherId": -1.0,
+"fatherId": -1.0
+},
+"vaccinationDetails": [{
+"dosageDate": null,
+"vaccine": null,
+"vaccineDescription": null,
+"healthStatus": 1.0,
+"healthDescription": null
+}],
+"dailyHealth": [{
+"healthCheckDate": null,
+"healthStatus": 0.0,
+"healthDescription": null
+}],
+"lactation": {
+"expectedQuantityInLitersPerDay": 25.0,
+"actualQuantityInLitersPerDay": [{
+"date": null,
+"quantity": 22.0
+}]
+},
+"diet": [{
+"date": null,
+"food": "green fodder",
+"quantityInKgs": null
+}]
+}
+   -->

@@ -25,3 +25,7 @@
     bottom: 0;
     position: absolute;
 }
+
+body {
+    padding-top: 80px;
+}

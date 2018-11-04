@@ -3,16 +3,16 @@
 
 <head>
     <title>My Barn-Cattle Management</title>
-    <%- include partials/meta.ejs %>
+    <%- include('partials/meta.ejs')%>
 </head>
 
 <body>
-    <%- include partials/navbar.ejs %>
+    <%- include('partials/navbar.ejs')%>
 
-    <%- include('pages/'+page) %>
+    <%- include('pages/'+page,{error: error, data: data}) %>
 
-    <%- include partials/footer.ejs %>
-    <%- include partials/scripts.ejs %>
+    <%- include('partials/footer.ejs')%>
+    <%- include('partials/scripts.ejs')%>
 </body>
 
 </html>

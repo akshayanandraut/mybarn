@@ -15,7 +15,8 @@
     "dosageDate": null,
     "vaccine": null,
     "vaccineDescription": null,
-    "healthStatus": 1.0
+    "healthStatus": 1.0,
+    "healthDescription": null
   }],
   "dailyHealth": [{
     "healthCheckDate": null,
