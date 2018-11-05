@@ -3,8 +3,9 @@ const path = require('path')
 const PORT = process.env.PORT || 8080
 var app = express();
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://mybarn:mybarn123@ds151533.mlab.com:51533/mybarn";
+//var url = "mongodb://mybarn:mybarn123@ds151533.mlab.com:51533/mybarn";
 var bodyParser = require('body-parser');
+var url=process.env.MONGODB_URI
 app
     .use(express.static(path.join(__dirname, 'public')))
     .use(bodyParser.json())
@@ -18,7 +19,8 @@ app
         data: null,
         error: "All Good"
     }))
-    .get('/:page', function (req, res) {
+
+.get('/:page', function (req, res) {
         var page = req.params.page;
         console.log(page);
         if (page == "index" || page == "register" || page == "details" || page == "breeding" || page == "dailyUpdates") {
