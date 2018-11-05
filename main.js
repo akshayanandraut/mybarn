@@ -43,6 +43,12 @@ app
                         });
                     });
             }
+            var pageData={
+                page: page,
+                data: null,
+                error: "All Good"
+            }
+            res.render("index", pageData)
 
         } else
             res.render("index", {
