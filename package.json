@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "ejs": "2.6.1",
-    "express": "4.16.4"
+    "express": "4.16.4",
+    "zero-fill": "2.2.3"
   },
   "repository": {
     "type": "git",
