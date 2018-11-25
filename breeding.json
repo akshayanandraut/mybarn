@@ -2,7 +2,5 @@
     "maleId": null,
     "femaleId": null,
     "breedingDate": null,
-    "ExpectedDeliveryDateFrom": null,
-    "ExpectedDeliveryDateTo": null,
-    "_id": ObjectId("5bdf0b930a31761b8096406d")
+    "expectedDelivery": null
 }

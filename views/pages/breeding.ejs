@@ -1,1 +1,102 @@
-breeding
+<div class="text-right">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelId">
+        New Breeding
+    </button>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modelTitleId">New Breeding</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form action="/breeding" method="post">
+                        <div class="form-group">
+                            <label for="maleID">Female ID: </label>
+                            <input type="number" class="form-control" name="femaleId" id="femaleId" aria-describedby="helpId"
+                                placeholder="Female ID">
+                            <small id="helpId" class="form-text text-muted">Enter Female ID here</small>
+
+                            <label for="maleID">Male ID: </label>
+                            <input type="number" class="form-control" name="maleId" id="maleId" aria-describedby="helpId"
+                                placeholder="Male ID">
+                            <small id="helpId" class="form-text text-muted">Enter Male ID here</small>
+
+                            <div class="form-group">
+                                <label for="breedingDate">Breeding Date</label>
+                                <input type="date" class="form-control" name="breedingDate" id="breedingDate"
+                                    aria-describedby="helpId" placeholder="Breeding Date">
+                                <small id="helpId" class="form-text text-muted">Enter Breeding date here</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="expectedDeliveryDate">Expected Delivery Date</label>
+                                <input type="date" class="form-control" name="expectedDeliveryDate" id="expectedDeliveryDate"
+                                    aria-describedby="helpId" placeholder="Expected Delivery Date">
+                                <small id="helpId" class="form-text text-muted">Enter Expected Delivery date here</small>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-warning">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="list-group">
+    <!-- GET DATA AND DISPLAY AS A LIST IN ASCENDING ORDER by delivery date
+        
+        <a href="#" class="list-group-item list-group-item-action ">Active item</a>
+    <a href="#" class="list-group-item list-group-item-action">Item</a>
+    <a href="#" class="list-group-item list-group-item-action ">Disabled item</a> -->
+    <table id="breedingTable" class="display order-column">
+        <thead>
+            <tr>
+                <th>Expected Delivery Date</th>
+                <th>Female ID</th>
+                <th>Male ID</th>
+                <th>Breeding Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i < data.length; i++) { %>
+            <tr>
+                <td>
+                    <%= data[i].expectedDeliveryDate %>
+                </td>
+                <td>
+                    <%= data[i].femaleId %>
+                </td>
+                <td>
+                    <%= data[i].maleId %>
+                </td>
+                <td>
+                    <%= data[i].breedingDate %>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+<script>
+    $('#newBreedingModal').on('show.bs.modal', event => {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+        // Use above variables to manipulate the DOM
+
+    });
+</script>
