@@ -1,62 +1,119 @@
 <div class="container">
     <form action="/register" method="post">
         <div class="form-group row">
-            <label for="inputName" class="col-sm-1-12 col-form-label">Cattle ID: </label>
-            <div class="col-xs-1-12">
-                <input type="number" class="form-control" readonly name="inputName" id="id" placeholder=""
+            <label for="inputName" class=" col-form-label">Cattle ID: </label>
+            <div class="col-xs-1">
+                <input type="number" class="form-control" readonly name="cattleId" id="cattleId" placeholder=""
                     aria-describedby="helpId">
                 <small id="helpId" class="form-text text-muted">Make sure that this ID and the Cattle ID is the same.</small>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-info">Submit</button>
+        <div class="form-group form-inline">
+            <label class="form-check-label col-form-label">
+                <input class="form-check-input col-xs-1" type="radio" name="gender" id="gender" value="female" checked>
+                Female
+            </label>
+            &nbsp;
+            <label class="form-check-label col-form-label">
+                <input class="form-check-input col-xs-3" type="radio" name="gender" id="gender" value="male"> Male
+            </label>
+        </div>
+        <div class=" form-inline">
+            <div class="form-group form-inline">
+                <label class="form-check-label ">
+                    <input onChange="onAnimalTypeChange()" class="form-check-input" type="radio" name="animalType" id="animalTypeCow"
+                        checked value="cow">
+                    Cow
+                </label>
+                &nbsp;
+                <label class="form-check-label ">
+                    <input onChange="onAnimalTypeChange()" class="form-check-input" type="radio" name="animalType" id="animalTypeBufflo"
+                        value="buffalo">
+                    Buffalo
+                </label>
+            </div> &nbsp;
+
+            <div class="form-inline">
+                <select id="breed" name="breed" autocomplete="on">
+                    <optgroup id="opt_group_cow" label="COW">
+                        <option value="Gir">Gir</option>
+                        <option value="Hariana">Hariana</option>
+                        <option value="Sahiwal">Sahiwal</option>
+                        <option value="Red Sindhi">Red Sindhi</option>
+                    </optgroup>
+                    <optgroup id="opt_group_buffalo" label="BUFFALO">
+                        <option value="Murrah">Murrah</option>
+                        <option value="Bhadawari">Bhadawari</option>
+                        <option value="Jaffarabadi">Jaffarabadi</option>
+                        <option value="Surti">Surti</option>
+                        <option value="Mehsana">Mehsana</option>
+                        <option value="Nagpuri">Nagpuri</option>
+                        <option value="Nili-Ravi">Nili-Ravi</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="form-inline ">
+            <input name="color" id="color" list="colors" placeholder="Select or Enter a Color">
+            <datalist id="colors">
+                <option value="Black">
+                <option value="White">
+                <option value="Brown">
+            </datalist>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="">Description and Comments</label>
+            <textarea class="form-control" name="descriptionAndComments" id="descriptionAndComments" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="">Date of Birth: </label>
+            <input type="datetime-local" class="form-control" name="dateOfBirth" id="dateOfBirth" aria-describedby="helpId"
+                placeholder="Enter Date of Birth">
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="">Enter Mother's ID</label>
+                <input type="number" class="form-control" name="motherId" id="motherId" aria-describedby="helpId"
+                    placeholder="Enter Mother's ID">
+            </div>
+            <div class="form-group">
+                <label for="">Enter Father's ID</label>
+                <input type="number" class="form-control" name="fatherId" id="fatherId" aria-describedby="helpId"
+                    placeholder="Enter Father's ID">
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-info">Register</button>
+
 
     </form>
 </div>
 
 <script>
     var id = <%=data%>;
-    document.getElementById('id').value = id;
+    document.getElementById('cattleId').value = id;
+    document.getElementById("opt_group_buffalo").disabled = true;
+    document.getElementById("opt_group_cow").disabled = false;
+    document.getElementById("opt_group_buffalo").style.display = 'none';
+    document.getElementById("opt_group_cow").style.display = 'block';
+
+    function onAnimalTypeChange() {
+        if (document.getElementById("animalTypeCow").checked) {
+            console.log("cow");
+            document.getElementById("opt_group_buffalo").disabled = true;
+            document.getElementById("opt_group_cow").disabled = false;
+            document.getElementById("opt_group_buffalo").style.display = 'none';
+            document.getElementById("opt_group_cow").style.display = 'block';
+
+        } else if (document.getElementById("animalTypeBufflo").checked) {
+            console.log("buffalo");
+            document.getElementById("opt_group_buffalo").disabled = false;
+            document.getElementById("opt_group_cow").disabled = true;
+            document.getElementById("opt_group_cow").style.display = 'none';
+            document.getElementById("opt_group_buffalo").style.display = 'block';
+        }
+    }
 </script>
-
-<!--
-
-{
-"_id": ObjectId("5bdf07f30a31761b80964061"),
-"id": 0.0,
-"gender": "f",
-"breed": "gir",
-"color": "brown",
-"descriptionAndComments": "",
-"dateOfBirth": "15-05-2018 00:00:00",
-"dateOfDeath": null,
-"parents": {
-"motherId": -1.0,
-"fatherId": -1.0
-},
-"vaccinationDetails": [{
-"dosageDate": null,
-"vaccine": null,
-"vaccineDescription": null,
-"healthStatus": 1.0,
-"healthDescription": null
-}],
-"dailyHealth": [{
-"healthCheckDate": null,
-"healthStatus": 0.0,
-"healthDescription": null
-}],
-"lactation": {
-"expectedQuantityInLitersPerDay": 25.0,
-"actualQuantityInLitersPerDay": [{
-"date": null,
-"quantity": 22.0
-}]
-},
-"diet": [{
-"date": null,
-"food": "green fodder",
-"quantityInKgs": null
-}]
-}
-   -->

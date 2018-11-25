@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path')
+var zeroFill = require('zero-fill')
 const PORT = process.env.PORT || 8080
 var app = express();
 var MongoClient = require('mongodb').MongoClient;
-//var url = "mongodb://mybarn:mybarn123@ds151533.mlab.com:51533/mybarn";
+var url = process.env.MONGODB_URI || "mongodb://mybarn:mybarn123@ds151533.mlab.com:51533/mybarn";
+
 var bodyParser = require('body-parser');
 var url=process.env.MONGODB_URI
 app
@@ -25,33 +27,17 @@ app
         console.log(page);
         if (page == "index" || page == "register" || page == "details" || page == "breeding" || page == "dailyUpdates") {
             if (page == "register") {
-                MongoClient.connect(url, {
-                        useNewUrlParser: true
-                    },
-                    function (err, db) {
-                        var dbo = db.db("mybarn");
-                        if (err) throw err;
-                        dbo.collection("cattle").find().sort({
-                            _id: -1
-                        }).toArray(function (err, result) {
-                            if (err) throw err;
-                            var pageData = {
-                                page: page,
-                                data: result[0].id + 1,
-                                error: "All Good"
-                            };
-                            res.render("index", pageData)
-                            db.close();
-                        });
-                    });
+                goToRegister(res);
+            } else if (page == "breeding") {
+                goToBreeding(res);
+            } else {
+                var pageData = {
+                    page: page,
+                    data: null,
+                    error: "All Good"
+                };
+                res.render("index", pageData)
             }
-            var pageData={
-                page: page,
-                data: null,
-                error: "All Good"
-            }
-            res.render("index", pageData)
-
         } else
             res.render("index", {
                 error: page + " doesn't exist or you are not authorized to view this page. Contact adminstrator for more details.",
@@ -60,13 +46,16 @@ app
             })
     })
     .post('/register', function (req, res) {
+
         var data = {
-            "id": req.body.id,
+            "id": req.body.cattleId,
             "gender": req.body.gender,
+            "animalType": req.body.animalType,
             "breed": req.body.breed,
             "color": req.body.color,
             "descriptionAndComments": req.body.descriptionAndComments,
             "dateOfBirth": req.body.dateOfBirth,
+            "dateOfRegstration": new Date(),
             "dateOfDeath": null,
             "parents": {
                 "motherId": req.body.motherId,
@@ -97,25 +86,97 @@ app
                 "quantityInKgs": null
             }]
         };
-        MongoClient.connect(url, {
-            useNewUrlParser: true
-        }, function (err, db) {
-            var dbo = db.db("mybarn");
+        insertData("cattle", data)
+        var pageData = {
+            page: "details",
+            data: null,
+            error: "All Good"
+        };
+        res.render("index", pageData)
 
-            if (err) throw err;
-            // dbo.collection("cattle").insertOne(data, function (err, res) {
-            //     if (err) {
-            //         res.send("Could not register cattle with ID: " + id + ". Please check the details and try again.");
-            //         throw err;
-            //     }
-            //     console.log("1 document inserted");
-            //     res.send("Successfully reistered the cattle with ID: " + id);
-            //     db.close();
-            // });
-        });
-
+    })
+    .post('/breeding', function (req, res) {
+        var data = {
+            "maleId": req.body.maleId,
+            "femaleId": req.body.femaleId,
+            "breedingDate": req.body.breedingDate,
+            "expectedDeliveryDate": req.body.expectedDeliveryDate
+        }
+        insertData("breeding", data)
+        goToBreeding(res)
 
     })
     .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 //collection.find().sort({goals:-1}, function(err, cursor){...});
+
+function insertData(collection, data) {
+    MongoClient.connect(url, {
+        useNewUrlParser: true
+    }, function (err, db) {
+        var dbo = db.db("mybarn");
+
+        if (err) throw err;
+        dbo.collection(collection).insertOne(data, function (err, res) {
+            if (err) {
+                throw err;
+                condole.log(err)
+            }
+            console.log("1 document inserted");
+
+            db.close();
+        });
+    });
+}
+
+function goToBreeding(res) {
+    MongoClient.connect(url, {
+            useNewUrlParser: true
+        },
+        function (err, db) {
+            var dbo = db.db("mybarn");
+            if (err) throw err;
+            dbo.collection("breeding").find().sort({
+                expectedDeliveryDate: -1
+            }).toArray(function (err, result) {
+                if (err) throw err;
+                console.log(result)
+                var pageData = {
+                    page: "breeding",
+                    data: result,
+                    error: "All Good"
+                };
+                res.render("index", pageData)
+                db.close();
+            });
+        });
+}
+
+function goToRegister(res) {
+    MongoClient.connect(url, {
+            useNewUrlParser: true
+        },
+        function (err, db) {
+            var dbo = db.db("mybarn");
+            if (err) throw err;
+            dbo.collection("cattle").find().sort({
+                id: -1
+            }).toArray(function (err, result) {
+                if (err) throw err;
+                var tempId = zeroFill(6, 1).toString()
+                if (result.length != '0')
+                    tempId = zeroFill(6, Number(result[0].id) + 1).toString()
+                console.log(tempId)
+                var pageData = {
+                    page: "register",
+                    data: tempId,
+                    error: "All Good"
+                };
+                res.render("index", pageData)
+                db.close();
+            });
+        });
+}
+
+function generateCode() {}
+
